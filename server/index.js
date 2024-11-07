@@ -17,7 +17,9 @@ app.use(cors(
 ))
 
 mongoose.connect('mongodb+srv://atchayaangusamy:dI6fmH3nNhpd5C0a@project.t2opm.mongodb.net/?retryWrites=true&w=majority&appName=project')
-
+app.get('/',(req,res)=>{
+    res.send('hello')
+})
 app.post('/register',(req,res)=>{
     empModel.create(req.body)
     .then(employees=>res.json(employees))
