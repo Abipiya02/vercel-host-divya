@@ -10,7 +10,7 @@ app.use(express.json())
 
 app.use(cors(
     {
-        origin:"https://frontend-blush-three-58.vercel.app/",
+        origin:"https://frontend-wine-phi-99.vercel.app/",
         methods:['GET','POST','PUT','DELETE'],
         credentials:true
     }
