@@ -8,7 +8,13 @@ const app=express()
 
 app.use(express.json())
 
-app.use(cors())
+app.use(cors(
+    {
+        origin:"https://frontend-blush-three-58.vercel.app/",
+        methods:['GET','POST','PUT','DELETE'],
+        credentials:true
+    }
+))
 
 mongoose.connect('mongodb+srv://atchayaangusamy:dI6fmH3nNhpd5C0a@project.t2opm.mongodb.net/?retryWrites=true&w=majority&appName=project')
 
