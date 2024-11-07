@@ -11,8 +11,7 @@ app.use(express.json())
 app.use(cors(
     {
         origin:"https://frontend-wine-phi-99.vercel.app/",
-        methods:['GET','POST','PUT','DELETE'],
-        credentials:true
+
     }
 ))
 
