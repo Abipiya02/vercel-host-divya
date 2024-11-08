@@ -10,7 +10,7 @@ app.use(express.json())
 
 
 
-const allowedOrigins = ['https://frontend-wine-phi-99.vercel.app']; // Add the exact origin here
+const allowedOrigins = ['https://frontend-wine-phi-99.vercel.app/']; // Add the exact origin here
 
 const corsOptions = {
   origin: function (origin, callback) {
