@@ -8,13 +8,21 @@ const app=express()
 
 app.use(express.json())
 
-app.use(cors(
-    {
-        origin:"https://frontend-wine-phi-99.vercel.app/",
 
+
+const allowedOrigins = ['https://frontend-wine-phi-99.vercel.app']; // Add the exact origin here
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
     }
-))
+  }
+};
 
+app.use(cors(corsOptions));
 mongoose.connect('mongodb+srv://atchayaangusamy:dI6fmH3nNhpd5C0a@project.t2opm.mongodb.net/?retryWrites=true&w=majority&appName=project')
 app.get('/',(req,res)=>{
     res.send('hello')
