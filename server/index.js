@@ -27,6 +27,9 @@ mongoose.connect('mongodb+srv://atchayaangusamy:dI6fmH3nNhpd5C0a@project.t2opm.m
 app.get('/',(req,res)=>{
     res.send('hello')
 })
+app.get('/login',(req,res)=>{
+    res.send('login')
+})
 app.post('/register',(req,res)=>{
     empModel.create(req.body)
     .then(employees=>res.json(employees))
