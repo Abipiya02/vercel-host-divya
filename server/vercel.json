@@ -8,7 +8,7 @@
     ],
     "routes": [
         {
-          "source": "/api/:path*",
+          "src": "/(.*)",
           "dest": "/",
           "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
           "headers": {
