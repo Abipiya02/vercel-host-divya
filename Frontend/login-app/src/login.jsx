@@ -12,7 +12,8 @@ function Login() {
     const handleSubmit=(e)=>{
         const form=document.querySelector('form')
         e.preventDefault()
-        axios.post(`vercel-host-divya-poul.vercel.app`+`/login`,{email,password})
+        axios.post('https://vercel-host-divya-poul.vercel.app/api/login', { email, password })
+
         .then(result=>{console.log(result)
         if(result.data==='success'){
           navigate('/')

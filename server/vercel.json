@@ -1,32 +1,23 @@
 {
   "version": 2,
   "builds": [
-      {
-          "src":"index.js",
-          "use": "@vercel/node"
-      },{
-        "src":"src/**/*",
-        "use":"@vercel/static"
-      }
-  ],
-  "routes":[
     {
-      "src":"/(.*)",
-      "dest":"/"
+      "src": "index.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "src/**/*",
+      "use": "@vercel/static"
     }
   ],
-  "headers": [
-      {
-        "source": "/(.*)",
-        "headers": [
-          { "key": "Access-Control-Allow-Origin", "value": "*" }
-        ]
-      },
-      {
-        "source": "/vercel_app_domain_name/(.*)",
-        "headers": [
-          { "key": "Access-Control-Allow-Origin", "value": "*" }
-        ]
-      }  
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
   ]
 }
