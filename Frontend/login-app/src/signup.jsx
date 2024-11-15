@@ -12,12 +12,13 @@ function Sign() {
     const handleSubmit=(e)=>{
         const form=document.querySelector('form')
         e.preventDefault()
-        axios.post(`https://vercel-host-divya-poul.vercel.app/api/register`,{name,email,password})
-        .then(result=>{console.log(result)
-        navigate('/login')
-        }
-      )
-        .catch(err=>console.log(err))
+        axios.post('https://vercel-host-divya-poul.vercel.app/api/register', { name, email, password })
+  .then(result => {
+    console.log(result);
+    navigate('/login');
+  })
+  .catch(err => console.log(err));
+
 
         form.reset()
 
