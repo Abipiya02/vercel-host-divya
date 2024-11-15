@@ -12,7 +12,11 @@ function Sign() {
     const handleSubmit=(e)=>{
         const form=document.querySelector('form')
         e.preventDefault()
-        axios.post('vercel-host-divya-poul.vercel.app/register',{name,email,password})
+        axios.post('vercel-host-divya-poul.vercel.app/register',{name,email,password},{
+          headers: {
+            'X-CSRFToken': csrftoken
+          }
+        })
         .then(result=>{console.log(result)
         navigate('/login')
         }
