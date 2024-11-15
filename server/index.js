@@ -7,7 +7,7 @@ const employeeModel = require('./model/employeeModel');
 const app = express();
 
 // Allow requests from your frontend URL
-const allowedOrigins = ['https://front-end-hosting-wine.vercel.app'];
+const allowedOrigins = ['https://front-end-hosting-wine.vercel.app/'];
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -42,31 +42,27 @@ app.get('/login', (req, res) => {
 });
 
 // Handle register request
-app.post('/register', (req, res) => {
-  empModel.create(req.body)
-    .then(employees => res.json(employees))
-    .catch(err => console.error(err));
-});
+app.post('/api/register', (req, res) => {
+    res.send('Registration successful');
+  });
 
 // Handle login request
-app.post('/login', (req, res) => {
-  const { email, password } = req.body;
-  employeeModel.findOne({ email: email })
-    .then(user => {
-      if (user) {
-        if (user.password === password) {
-          res.json('success');
-        } else {
-          res.json('password is incorrect');
-        }
-      } else {
-        res.json('no records');
-      }
-    })
-    .catch(err => res.status(500).json({ error: 'Internal Server Error' }));
-});
-
-// Start the server
-app.listen(process.env.PORT || 3001, () => {
-  console.log('server is running');
-});
+app.post('/api/login', (req, res) => {
+    // Get the login details from the request body
+    const { username, password } = req.body;
+  
+    // Simulating authentication (in a real app, you would check the database)
+    if (username === 'admin' && password === 'password123') {
+      // If credentials are correct, send a success response (you would likely return a token here)
+      res.send('Login successful');
+    } else {
+      // If credentials are incorrect, send an error message
+      res.status(401).send('Invalid username or password');
+    }
+  });
+  
+  // Start the server
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
