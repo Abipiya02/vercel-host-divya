@@ -6,29 +6,33 @@ const employeeModel = require('./model/employeeModel');
 
 const app = express();
 
-app.use(express.json());
-
-const allowedOrigins = ['https://front-end-hosting-wine.vercel.app']; // Add the exact origin of your frontend
+// Allow requests from your frontend URL
+const allowedOrigins = ['https://front-end-hosting-wine.vercel.app'];
 
 const corsOptions = {
   origin: function (origin, callback) {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) { // Allows for local dev as well (i.e., origin == null)
-      callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true); // Allow the origin if it's in the list or if it's local dev
     } else {
       callback(new Error('Not allowed by CORS'));
     }
   },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allow relevant HTTP methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
-  preflightContinue: false,  // Handle OPTIONS requests explicitly
-  optionsSuccessStatus: 200, // Avoid 404 error in older browsers for OPTIONS requests
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  preflightContinue: false,  // Automatically handle OPTIONS requests
+  optionsSuccessStatus: 200, // Allow status 200 for OPTIONS requests
 };
 
-// Enable CORS with the above options
+// Use the CORS middleware
 app.use(cors(corsOptions));
 
-mongoose.connect('mongodb+srv://atchayaangusamy:dI6fmH3nNhpd5C0a@project.t2opm.mongodb.net/mydb');
+// Parse JSON request bodies
+app.use(express.json());
 
+// MongoDB connection
+mongoose.connect('mongodb+srv://atchayaangusamy:dI6fmH3nNhpd5C0a@project.t2opm.mongodb.net/mydb', { useNewUrlParser: true, useUnifiedTopology: true });
+
+// Routes
 app.get('/', (req, res) => {
   res.send('hello');
 });
@@ -37,12 +41,14 @@ app.get('/login', (req, res) => {
   res.send('login');
 });
 
+// Handle register request
 app.post('/register', (req, res) => {
   empModel.create(req.body)
     .then(employees => res.json(employees))
-    .catch(err => console.log(err));
+    .catch(err => console.error(err));
 });
 
+// Handle login request
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
   employeeModel.findOne({ email: email })
@@ -56,9 +62,11 @@ app.post('/login', (req, res) => {
       } else {
         res.json('no records');
       }
-    });
+    })
+    .catch(err => res.status(500).json({ error: 'Internal Server Error' }));
 });
 
+// Start the server
 app.listen(process.env.PORT || 3001, () => {
   console.log('server is running');
 });
